@@ -1,66 +1,172 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_app/video_detail.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          centerTitle: false,
+          leading: const Icon(
+            Icons.smart_display,
+            color: Colors.red,
+            size: 32,
+          ),
+          title: const Text(
+            'FakeYouTube',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                // TODO: impl
+              },
+              icon: const Icon(Icons.search),
+              color: Colors.grey,
+            ),
+            IconButton(
+              onPressed: () {
+                // TODO: impl
+              },
+              icon: const Icon(Icons.more_vert),
+              color: Colors.grey,
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'images/metron.jpg',
+                    width: 72,
+                    height: 72,
+                  ),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'FakeYouTuber',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              // TODO: impl
+                            },
+                            style: ButtonStyle(
+                              padding:
+                                  MaterialStateProperty.all(EdgeInsets.zero),
+                              minimumSize: MaterialStateProperty.all(Size.zero),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            child: Row(
+                              children: const [
+                                Icon(
+                                  Icons.smart_display,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  '登録する',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'チャンネル登録者数 100万人',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 15,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const VideoDetail(),
+                        ),
+                      );
+                    },
+                    contentPadding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+                    leading: Image.asset(
+                      'images/shockeye.jpg',
+                    ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '【Flutter超入門】 $index',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Row(
+                          children: const [
+                            Text(
+                              '100万回再生',
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              '1日前',
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    trailing: IconButton(
+                      onPressed: () {
+                        // TODO: impl
+                      },
+                      icon: const Icon(Icons.more_vert),
+                      color: Colors.grey,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
